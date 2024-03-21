@@ -6,14 +6,27 @@ const User = require("../models/user.js")
 //----------------------- Add Task -----------------------
 const addTask = async (request, response) => {
     try {
-        const { name } = request.body;
+        const { title, description, status, start_date, end_date } = request.body;
+
+        console.log("req.body--------", request.body);
+
+        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof start_date !== 'string' || typeof end_date !== 'string') {
+            return response.status(400).send({ status: false, message: "User Input Error" });
+        }
         const user = await User.findById({ _id: request.user.id });
         if (!user) {
             return response.status(400).send({ status: false, message: 'User NOT Found' });
         }
 
         // creates an instance of task model
-        const task = new Task({ name, user: user._id });
+        const task = new Task({
+            title,
+            description,
+            status,
+            start_date,
+            end_date,
+            user: user._id
+        });
         await task.save();
 
         user.tasks.push(task._id);

@@ -2,7 +2,16 @@ const mongoose = require('mongoose')
 const user = require('./user.js')
 
 const taskSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    status: {
+        type: String,
+        enum: ['todo', 'inprogress', 'pending', 'done'],
+        required: true
+    },
+    // status: { type: String, required: true },
+    start_date: { type: String, required: true, default: null },
+    end_date: { type: String, required: true, default: null },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "model" }
 })
 
