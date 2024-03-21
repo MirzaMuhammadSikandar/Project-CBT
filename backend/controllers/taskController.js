@@ -64,6 +64,28 @@ const getTasks = async (request, response) => {
 };
 
 
+//----------------------- Get Tasks -----------------------
+const getSingleTask = async (request, response) => {
+    try {
+        const user = await User.findById({ _id: request.user.id });
+        const taskId = request.params.id;
+
+        if (!user) {
+            return response.status(400).send({ status: false, message: 'User NOT Found' });
+        }
+        if (!taskId) {
+            return response.status(400).send({ status: false, message: "Error! params id missing" });
+        }
+
+        let task = await Task.findById({ _id: taskId });
+        return response.status(200).json({ status: true, task });
+    } catch (error) {
+        console.log('Error read-------------------', error);
+        return response.status(400).send({ status: false, message: 'Error in get Task' });
+    }
+};
+
+
 //----------------------- Update Tasks -----------------------
 const updateTask = async (request, response) => {
     try {
@@ -148,6 +170,7 @@ const deleteTask = async (request, response) => {
 module.exports = {
     addTask,
     getTasks,
+    getSingleTask,
     updateTask,
     deleteTask
 }
