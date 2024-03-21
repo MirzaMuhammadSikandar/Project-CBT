@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "fd56c274-d223-4b19-bf6a-dc76fb565fad",
+		"name": "projectregister",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31981336",
+		"_collection_link": "https://gold-astronaut-561462.postman.co/workspace/New-Team-Workspace~7f9601e7-2e55-4997-8959-adb6b42167d5/collection/31981336-fd56c274-d223-4b19-bf6a-dc76fb565fad?action=share&source=collection_link&creator=31981336"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Dummy",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "dummybscs0059@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Dummy123",
+							"type": "text"
+						},
+						{
+							"key": "dateofbirth",
+							"value": "3/5/2011",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "H#12, strret#3, DHA.",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/mirza/OneDrive/Desktop/Uni/yo.PNG"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"dummybscs0059@gmail.com\",\r\n    \"password\": \"Dummy123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjM0NThhNjVkNTcyOTg5ZGNhYjMxMCIsImVtYWlsIjoiZHVtbXlic2NzMDA1OUBnbWFpbC5jb20iLCJpYXQiOjE3MTA0NDE5OTAsImV4cCI6MTcxMDQ0NTU5MH0.2kX5hBE8_cKmu8cX_Yxob_kyUbEjUXP0_Fx-Wk_4JEs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "newName",
+							"value": "Dummy",
+							"type": "text"
+						},
+						{
+							"key": "newEmail",
+							"value": "dummybscs0059@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "newPassword",
+							"value": "Dummy123",
+							"type": "text"
+						},
+						{
+							"key": "newDateofbirth",
+							"value": "6/6/2001",
+							"type": "text"
+						},
+						{
+							"key": "newAddress",
+							"value": "H#17, DHA.",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/mirza/OneDrive/Desktop/Uni/datesheet.PNG"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/user/update-user",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"update-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forget-password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"dummybscs0059@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/forgetpassword",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"forgetpassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset-password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newpassword\":\"Dummy12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5555/user/reset-password/65decdf5078757360d5d5394/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR1bW15YnNjczAwNTlAZ21haWwuY29tIiwiaWQiOiI2NWRlY2RmNTA3ODc1NzM2MGQ1ZDUzOTQiLCJpYXQiOjE3MDkxMDEzNTMsImV4cCI6MTcwOTEwMjI1M30.UYYmDccWC_UT9lt3NRB8JdMSaNijNS1EtBAt9bGKfuM",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5555",
+					"path": [
+						"user",
+						"reset-password",
+						"65decdf5078757360d5d5394",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR1bW15YnNjczAwNTlAZ21haWwuY29tIiwiaWQiOiI2NWRlY2RmNTA3ODc1NzM2MGQ1ZDUzOTQiLCJpYXQiOjE3MDkxMDEzNTMsImV4cCI6MTcwOTEwMjI1M30.UYYmDccWC_UT9lt3NRB8JdMSaNijNS1EtBAt9bGKfuM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "googleurl",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/googleurl",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"googleurl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userRecord",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjM0NThhNjVkNTcyOTg5ZGNhYjMxMCIsImVtYWlsIjoiZHVtbXlic2NzMDA1OUBnbWFpbC5jb20iLCJpYXQiOjE3MTA0NDI2NzcsImV4cCI6MTcxMDQ0NjI3N30.kVoNgV_3VPxoGmNuvOr-Ah8Jxf9DVGkRJ5S_1KDig0w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/record",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"record"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
