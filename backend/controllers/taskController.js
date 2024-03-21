@@ -48,13 +48,15 @@ const getTasks = async (request, response) => {
         }
 
         const tasks = user.tasks;
-        let tasksNames = [];
+        console.log('user tasks----------', tasks)
+        let allTasks = [];
 
         for (let i = 0; i < tasks.length; i++) {
             let task = await Task.findById({ _id: tasks[i] });
-            tasksNames.push(task.name);
+            console.log(task);
+            allTasks.push(task);
         }
-        return response.status(200).json({ status: true, tasks: tasksNames });
+        return response.status(200).json({ status: true, tasks: allTasks });
     } catch (error) {
         console.log('Error read-------------------', error);
         return response.status(400).send({ status: false, message: 'Error in get Task' });
@@ -67,15 +69,24 @@ const updateTask = async (request, response) => {
     try {
         console.log('update-------------------');
         const taskId = request.params.id;
-        const { newName } = request.body;
+
+        if (!taskId) {
+            return response.status(400).send({ status: false, message: "Error! params id missing" });
+        }
+
+        const { title, description, status, start_date, end_date } = request.body;
+
+        console.log("req.body--------", request.body);
+
+        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof start_date !== 'string' || typeof end_date !== 'string') {
+            return response.status(400).send({ status: false, message: "User Input Error" });
+        }
+
         const user = await User.findById({ _id: request.user.id });
         const task = await Task.findById({ _id: taskId });
 
         if (!user) {
             return response.status(400).send({ status: false, message: 'User NOT Found' });
-        }
-        if (!newName) {
-            return response.status(400).send({ status: false, message: 'Input field is Empty' });
         }
         if (!task) {
             return response.status(400).send({ status: false, message: 'Task NOT Found' });
@@ -85,7 +96,11 @@ const updateTask = async (request, response) => {
         }
         const taskData = await Task.findByIdAndUpdate({ _id: taskId }, {
             $set: {
-                name: newName,
+                title,
+                description,
+                status,
+                start_date,
+                end_date,
             }
         })
 

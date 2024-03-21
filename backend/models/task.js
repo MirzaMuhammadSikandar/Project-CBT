@@ -7,9 +7,10 @@ const taskSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['todo', 'inprogress', 'pending', 'done'],
+        // enum to define a set of constants
         required: true
     },
-    // status: { type: String, required: true },
+
     start_date: { type: String, required: true, default: null },
     end_date: { type: String, required: true, default: null },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "model" }
