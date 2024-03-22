@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
 const User = require("../models/user.js")
 const { generateAccessToken, generateRefreshToken, generateOTP } = require('../helperFunctions.js')
+const Task = require("../models/task.js");
 
 
 // let refreshTokens = []
@@ -51,7 +52,7 @@ const registration = async (request, response) => {
         return response.status(400).send({ status: false, message: "Error in Registration" });
     }
 
-    
+
 
     // return response.status(200).send({ status: true, message: "Registration Successful" });
 }
@@ -264,6 +265,39 @@ const updatePassword = async (request, response) => {
     }
 }
 
+//----------------------- delete User -----------------------
+const deleteUser = async (request, response) => {
+    try {
+
+        console.log('delete User-------------------');
+        const userId = request.params.id;
+        const user = await User.findById({ _id: userId });
+        if (!user) {
+            return response.status(400).send({ status: false, message: 'User NOT Found' });
+        }
+
+        taskArray = user.tasks;
+
+        for (let i = 0; i < taskArray.length; i++) {
+            let taskId = taskArray[i];
+
+            await Task.deleteOne({ _id: taskId });
+            const index = taskArray.indexOf(taskId);
+
+            console.log('index-----------------', index);
+
+            const x = taskArray.splice(index, 1);
+        }
+
+        await User.deleteOne({ _id: userId });
+        
+        return response.status(200).send({ status: true, message: 'User Deleted Successfully' });
+    } catch (error) {
+        console.error('Error!!!---------------:', error);
+        return response.status(400).send({ status: false, message: "Error in deleting User Data" });
+    }
+}
+
 module.exports = {
     registration,
     login,
@@ -272,5 +306,6 @@ module.exports = {
     resetPassword,
     getUser,
     verifyOTP,
-    updatePassword
+    updatePassword,
+    deleteUser
 }

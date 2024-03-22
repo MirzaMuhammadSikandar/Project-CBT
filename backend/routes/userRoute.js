@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {registration, login, updateuser, forgetPassword, resetPassword, getUser, verifyOTP, updatePassword} = require('../controllers/userController.js')
+const {registration, login, updateuser, forgetPassword, resetPassword, getUser, verifyOTP, updatePassword, deleteUser} = require('../controllers/userController.js')
 const upload = require('../middleware/multermiddleware.js')
 const {authenticateToken, isLoggedIn, forgetPasswordAuthToken} = require('../middleware/auth.js')
 const {getGoogleURL, googleCallback, verifyToken} = require('../controllers/googleController.js')
@@ -16,5 +16,6 @@ router.get('/googleurl', getGoogleURL);
 router.get('/google/callback', googleCallback);
 router.post('/verifyToken', verifyToken);
 router.put('/updatepassword', authenticateToken, isLoggedIn, updatePassword);
+router.delete('/delete/:id', deleteUser);
 
 module.exports = router;

@@ -157,6 +157,9 @@ const deleteTask = async (request, response) => {
 
         const x = taskArray.splice(index, 1);
 
+        user.tasks = taskArray;
+        await user.save();
+
         console.log(`myArray values: ${taskArray}`);
         console.log(`variable x value: ${x}`);
 
