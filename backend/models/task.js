@@ -11,8 +11,7 @@ const taskSchema = new mongoose.Schema({
         required: true
     },
 
-    start_date: { type: String, required: true, default: null },
-    end_date: { type: String, required: true, default: null },
+    date: { type: String, required: true, default: null },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "model" }
 })
 

@@ -6,11 +6,11 @@ const User = require("../models/user.js")
 //----------------------- Add Task -----------------------
 const addTask = async (request, response) => {
     try {
-        const { title, description, status, start_date, end_date } = request.body;
+        const { title, description, status, date } = request.body;
 
         console.log("req.body--------", request.body);
 
-        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof start_date !== 'string' || typeof end_date !== 'string') {
+        if (!title || !description || !status || !date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof date !== 'string') {
             return response.status(400).send({ status: false, message: "User Input Error" });
         }
         const user = await User.findById({ _id: request.user.id });
@@ -23,8 +23,7 @@ const addTask = async (request, response) => {
             title,
             description,
             status,
-            start_date,
-            end_date,
+            date,
             user: user._id
         });
         await task.save();
@@ -96,11 +95,11 @@ const updateTask = async (request, response) => {
             return response.status(400).send({ status: false, message: "Error! params id missing" });
         }
 
-        const { title, description, status, start_date, end_date } = request.body;
+        const { title, description, status, date } = request.body;
 
         console.log("req.body--------", request.body);
 
-        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof start_date !== 'string' || typeof end_date !== 'string') {
+        if (!title || !description || !status || !date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof date !== 'string') {
             return response.status(400).send({ status: false, message: "User Input Error" });
         }
 
@@ -121,8 +120,7 @@ const updateTask = async (request, response) => {
                 title,
                 description,
                 status,
-                start_date,
-                end_date,
+                date,
             }
         })
 
