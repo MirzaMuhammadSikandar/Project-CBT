@@ -278,19 +278,20 @@ const deleteUser = async (request, response) => {
 
         taskArray = user.tasks;
 
-        for (let i = 0; i < taskArray.length; i++) {
-            let taskId = taskArray[i];
+        // for (let i = 0; i < taskArray.length; i++) {
+        //     let taskId = taskArray[i];
 
-            await Task.deleteOne({ _id: taskId });
-            const index = taskArray.indexOf(taskId);
+        // await Task.deleteOne({ _id: taskId });
+        await Task.deleteMany({ user: userId });
+        //     const index = taskArray.indexOf(taskId);
 
-            console.log('index-----------------', index);
+        //     console.log('index-----------------', index);
 
-            const x = taskArray.splice(index, 1);
-        }
+        //     const x = taskArray.splice(index, 1);
+        // }
 
         await User.deleteOne({ _id: userId });
-        
+
         return response.status(200).send({ status: true, message: 'User Deleted Successfully' });
     } catch (error) {
         console.error('Error!!!---------------:', error);

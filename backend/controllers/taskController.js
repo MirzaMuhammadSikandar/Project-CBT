@@ -1,16 +1,16 @@
 require('dotenv').config()
-
+const { checkTaskExpiry, checkTaskStatus } = require('../helperFunctions.js')
 const Task = require("../models/task.js");
 const User = require("../models/user.js")
 
 //----------------------- Add Task -----------------------
 const addTask = async (request, response) => {
     try {
-        const { title, description, status, date } = request.body;
+        const { title, description, status, start_date, end_date } = request.body;
 
         console.log("req.body--------", request.body);
 
-        if (!title || !description || !status || !date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof date !== 'string') {
+        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'number' || typeof start_date !== 'string' || typeof end_date !== 'string') {
             return response.status(400).send({ status: false, message: "User Input Error" });
         }
         const user = await User.findById({ _id: request.user.id });
@@ -23,7 +23,8 @@ const addTask = async (request, response) => {
             title,
             description,
             status,
-            date,
+            start_date,
+            end_date,
             user: user._id
         });
         await task.save();
@@ -46,15 +47,16 @@ const getTasks = async (request, response) => {
             return response.status(400).send({ status: false, message: 'User NOT Found' });
         }
 
-        const tasks = user.tasks;
-        console.log('user tasks----------', tasks)
-        let allTasks = [];
+        // const tasks = user.tasks;
+        // console.log('user tasks----------', tasks)
+        
+        let allTasks = await Task.find({ user: request.user.id});
+        console.log("task-----", allTasks);
+    
 
-        for (let i = 0; i < tasks.length; i++) {
-            let task = await Task.findById({ _id: tasks[i] });
-            console.log(task);
-            allTasks.push(task);
-        }
+        allTasks = await checkTaskExpiry(allTasks);
+        // console.log('checking expiry----------', check);
+        // allTasks = await checkTaskStatus(allTasks);
         return response.status(200).json({ status: true, tasks: allTasks });
     } catch (error) {
         console.log('Error read-------------------', error);
@@ -63,7 +65,7 @@ const getTasks = async (request, response) => {
 };
 
 
-//----------------------- Get Tasks -----------------------
+//----------------------- Get Single Task -----------------------
 const getSingleTask = async (request, response) => {
     try {
         const user = await User.findById({ _id: request.user.id });
@@ -95,11 +97,11 @@ const updateTask = async (request, response) => {
             return response.status(400).send({ status: false, message: "Error! params id missing" });
         }
 
-        const { title, description, status, date } = request.body;
+        const { title, description, status, start_date, end_date } = request.body;
 
         console.log("req.body--------", request.body);
 
-        if (!title || !description || !status || !date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'string' || typeof date !== 'string') {
+        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'number' || typeof start_date !== 'string' || typeof end_date !== 'string') {
             return response.status(400).send({ status: false, message: "User Input Error" });
         }
 
@@ -120,7 +122,8 @@ const updateTask = async (request, response) => {
                 title,
                 description,
                 status,
-                date,
+                start_date,
+                end_date
             }
         })
 
