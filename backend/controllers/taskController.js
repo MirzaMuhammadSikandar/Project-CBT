@@ -10,7 +10,7 @@ const addTask = async (request, response) => {
 
         console.log("req.body--------", request.body);
 
-        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'number' || typeof start_date !== 'string' || typeof end_date !== 'string') {
+        if (!title || !description || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof start_date !== 'string' || typeof end_date !== 'string' || typeof status !== 'number') {
             return response.status(400).send({ status: false, message: "User Input Error" });
         }
         const user = await User.findById({ _id: request.user.id });
@@ -101,7 +101,7 @@ const updateTask = async (request, response) => {
 
         console.log("req.body--------", request.body);
 
-        if (!title || !description || !status || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'number' || typeof start_date !== 'string' || typeof end_date !== 'string') {
+        if (!title || !description || !start_date || !end_date || typeof title !== 'string' || typeof description !== 'string' || typeof status !== 'number' || typeof start_date !== 'string' || typeof end_date !== 'string') {
             return response.status(400).send({ status: false, message: "User Input Error" });
         }
 
