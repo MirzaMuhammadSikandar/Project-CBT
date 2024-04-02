@@ -33,6 +33,16 @@ async function checkTaskExpiry(tasks) {
     return tasks;
 }
 
+async function datesValidation(start_date, end_date) {
+    let currentDate = moment().format('YYYY-MM-DD');
+
+    if (start_date > currentDate && end_date > currentDate) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 async function checkTaskStatus(tasks) {
 
     for (let i = 0; i < tasks.length; i++) {
@@ -57,7 +67,8 @@ module.exports = {
     generateRefreshToken,
     generateOTP,
     checkTaskExpiry,
-    checkTaskStatus
+    checkTaskStatus,
+    datesValidation
 }
 
 
