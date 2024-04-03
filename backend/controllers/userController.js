@@ -192,7 +192,7 @@ const getUser = async (request, response) => {
         const userData = await User.findById({ _id: request.user.id });
 
         console.log('user--------------------', userData)
-        return response.status(200).send([{ status: true, user: userData }]);
+        return response.status(200).send({ status: true, user: userData });
     } catch (error) {
         console.error('Error!!!---------------:', error);
         return response.status(400).send({ status: false, message: "Error in get User Data" });
